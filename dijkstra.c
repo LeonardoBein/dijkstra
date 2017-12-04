@@ -55,43 +55,54 @@ void estimativa(sVERTICE vertices[TAM_VERTICES],int u) {
 
 
 void dijkstra(sVERTICE vertices[TAM_VERTICES], sARESTA arestas[TAM_VERTICES][TAM_VERTICES]){
-  int i=0,j, custoAdicional,k,*adj,linhaAtual,qtd,in=1,l=0;
+  int i=0,j, custoAdicional,k,*adj,linhaAtual,qtd,in=1;
+
   while (tem_aberto(vertices)) {
-    l=i;
+
     i = menor_vertice(vertices);
     vertices[i].aberto = 0;
-    // printf("%d --> custo %d\tarestas[%d][%d].linha\n",i+1,vertices[i].custo,i,l );
+
     adj = adjacente(arestas,i);
     qtd = quantidade_adj(arestas,i);
     for ( j = 0, k=0,custoAdicional=0; j <  qtd; j++) {
       k = adj[j];
       if (vertices[k].aberto) {
-        if(vertices[i].custo+arestas[i][k].custo < vertices[k].custo && arestas[i][k].custo != 0){
+        if(vertices[i].custo + arestas[i][k].custo < vertices[k].custo){
             if (vertices[i].linhaAnterior != arestas[i][k].linha && !in) {
-              // printf("-----> mudou de linha %d\n",k+1);
               custoAdicional = 6;
-              // vertices[k].linha += 1;
-            } else
-            {
-              custoAdicional = 0;
-              // printf("-----> nao mudou de linha %d\n",k+1);
-
             }
+            else{ custoAdicional = 0; }
 
             vertices[k].linhaAnterior = arestas[i][k].linha;
             vertices[k].anterior = &vertices[i];
-            vertices[k].custo = vertices[i].custo+arestas[i][k].custo+custoAdicional;
-        }else{
-          // printf("-----> %d maior %d: %d\n",vertices[i].custo+arestas[i][k].custo ,vertices[k].custo,k+1);
+            vertices[k].custo = vertices[i].custo + arestas[i][k].custo + custoAdicional;
         }
       }
 
     }
     in=0;
-    // er++;
-    // break;
   }
 }
+
+
+void mostrar_rota(sVERTICE *vertices){
+
+  printf("\nCaminho a ser percorrido\n" );
+  percorrer(vertices);
+  printf("Chegou\n" );
+  printf("Tempo total: %d\n",vertices->custo );
+}
+
+void percorrer(sVERTICE *vertices){
+  if (vertices->custo == 0) {
+    printf("%d ", vertices->nome);
+  }else{
+    percorrer(vertices->anterior);
+
+    printf("(Linha: %s; Tempo: %d) -> %d ", estacao(vertices->linhaAnterior),vertices->custo,vertices->nome);
+  }
+}
+
 
 int tem_aberto(sVERTICE vertices[TAM_VERTICES]){
   int i;
@@ -153,23 +164,16 @@ int *adjacente(sARESTA arestas[TAM_VERTICES][TAM_VERTICES],int u){
   return adj;
 }
 
+char *estacao(int estacao){
 
-void mostrar_rota(sVERTICE *vertices){
 
-  printf("\nCaminho a ser percorrido\n" );
-  percorrer(vertices,-1);
-  printf("Chegou\n" );
-  printf("Tempo total: %d\n",vertices->custo );
-}
-
-void percorrer(sVERTICE *vertices,int estacao){
-  if (vertices->custo == 0) {
-    printf("%d-> ", vertices->nome);
-  }else{
-    percorrer(vertices->anterior,vertices->linhaAnterior);
-    // if (estacao != vertices->linhaAnterior) {
-
-      printf("%d-> ", vertices->nome);
-    // }
+  switch (estacao) {
+    case 1: return "Vermelha";
+    case 2: return "Verde";
+    case 3: return "Azul";
+    case 4: return "Amarela";
+    case 5: return "Roxo";
+    default: return "";
   }
+
 }

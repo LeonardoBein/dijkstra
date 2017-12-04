@@ -50,30 +50,14 @@ int main() {
   scanf("%d",&origem );
 
   abrir_vertices(vertices);
+
+
   estimativa(vertices,origem);
-  // for (int i = 0; i < TAM_VERTICES; i++) {
-  //   printf("%.2d  ", vertices[i].aberto );
-  // }
-  // printf("\n");
 
   dijkstra(vertices,arestas);
 
-  // for (int i = 0; i < TAM_VERTICES; i++) {
-  //   for (int j = 0; j < TAM_VERTICES; j++) {
-  //     if (arestas[i][j].custo != 0) {
-  //       printf("%.2d|",arestas[i][j].linha );
-  //     }
-  //     else{
-  //       printf("  |");
-  //     }
-  //   }
-  //   printf("\n");
-  // }
-  //
-  // for (int i = 0; i < TAM_VERTICES; i++) {
-  //   printf("%X  ", vertices[i].nome );
-  // }
 
+  
   printf("Estacao final: ");
   scanf("%d",&final );
 
