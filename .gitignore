@@ -41,6 +41,8 @@
 *.su
 *.idb
 *.pdb
+# the file compiled
+dijkstra
 
 # Kernel Module Compile Results
 *.mod*
