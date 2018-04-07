@@ -99,7 +99,7 @@ void percorrer(sVERTICE *vertices){
   }else{
     percorrer(vertices->anterior);
 
-    printf("(Linha: %s; Tempo: %d) -> %d ", estacao(vertices->linhaAnterior),vertices->custo,vertices->nome);
+    printf("(Linha: %s; Tempo: %d) -> %d ", name_station(vertices->linhaAnterior),vertices->custo,vertices->nome);
   }
 }
 
@@ -164,7 +164,7 @@ int *adjacente(sARESTA arestas[TAM_VERTICES][TAM_VERTICES],int u){
   return adj;
 }
 
-char *estacao(int estacao){
+char *name_station(int estacao){
 
 
   switch (estacao) {
@@ -176,4 +176,11 @@ char *estacao(int estacao){
     default: return "";
   }
 
+}
+
+int is_station(int valor) {
+  if (valor <= 0 || valor > TAM_VERTICES) {
+    return 0;
+  }
+  return 1;
 }

@@ -5,7 +5,7 @@
 
 
 int main() {
-  int origem, final;
+  int origem, final,i;
   sARESTA arestas[TAM_VERTICES][TAM_VERTICES];
   sVERTICE vertices[TAM_VERTICES];
 
@@ -46,20 +46,30 @@ int main() {
 	criar_aresta(arestas,10,11,VERDE,16);
 
 
-  printf("Estacao inicial: " );
-  scanf("%d",&origem );
+  i=1;
+  do {
+    printf("Estacao inicial: " );
+    scanf("%d",&origem );
+
+    printf("Estacao final: ");
+    scanf("%d",&final );
+
+    if ((is_station(origem) && is_station(final)))
+      i = 0;
+    else
+      printf("Erro: estacao não está no limite\n\n");
+
+  } while(i);
+
+
+
 
   abrir_vertices(vertices);
-
 
   estimativa(vertices,origem);
 
   dijkstra(vertices,arestas);
 
-
-  
-  printf("Estacao final: ");
-  scanf("%d",&final );
 
   mostrar_rota(&vertices[final-1]);
 

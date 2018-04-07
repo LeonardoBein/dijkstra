@@ -35,4 +35,5 @@ int quantidade_adj(sARESTA arestas[TAM_VERTICES][TAM_VERTICES],int u);
 void mostrar_rota(sVERTICE *vertices);
 void percorrer(sVERTICE *vertices);
 char *linha(int linha);
-char *estacao(int estacao);
+char *name_station(int estacao);
+int is_station(int valor);
